@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 
-const ListItem = (props) => {
+const ListItem = ({userImage, userName, imageUrl, content}) => {
   return (
     <View style={ styles.postWrapper }>
       <View style={ styles.topBox }>
@@ -10,16 +10,16 @@ const ListItem = (props) => {
           <View style={ styles.userImage }>
             <Image
             style={ styles.userImage }
-            source={{ uri: props.userImage }}
+            source={{ uri: userImage }}
             />
           </View>
-          <Text style={ styles.userName }>{ props.userName }</Text>
+          <Text style={ styles.userName }>{ userName }</Text>
         </View>
       </View>
       <View style={ styles.middleBox }>
         <Image
         style={ styles.middleBox }
-        source={{ uri: props.imageUrl }}
+        source={{ uri: imageUrl }}
         />
       </View>
       <View style={ styles.bottomBox }>
@@ -29,7 +29,7 @@ const ListItem = (props) => {
           <View style={ styles.bottomRightArea }></View>
         </View>
         <View style={ styles.bottomTopArea }>
-          <Text>{ props.content }</Text>
+          <Text>{ content }</Text>
         </View>
       </View>
     </View>
@@ -40,10 +40,9 @@ export default ListItem;
 
 const styles = StyleSheet.create({
   postWrapper: {
-    height: '70%',
+    height: 600,
     width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
+    // backgroundColor: 'red'
   },
   topBox: {
     width: '100%',

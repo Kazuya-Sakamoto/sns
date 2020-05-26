@@ -1,25 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
 import ListItem from './components/ListItem'
-// import posts from './dummies/post.json'
+import posts from './dummies/posts.json'
 
 
 export default function App() {
-  // const items = posts.map( post => { return(
-  //   <ListItem
-  //     username={ post.user_name }
-  //     userImage={ post.user_image }
-  //     ImageUrl={ post.urlToImage }
-  //     content={ post.content }
-  //   />
-  // )})
+  const items = posts.map( post => { 
+    return (
+      <ListItem
+        userName={ post.user_name }
+        userImage={ post.user_image }
+        imageUrl={ post.urlToImage }
+        content={ post.content }
+      />
+    )
+  })
+
   return (
     <View style={ styles.container }>
-      <ListItem
-        userName="Riko"
-        content="samplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesample"
-        imageUrl="https://picsum.photos/200/300"
-        userImage="https://picsum.photos/200"
+      <FlatList
+        data={ posts }
+        renderItem={({ item }) => (
+          <ListItem
+          userName={ item.user_name }
+          userImage={ item.user_image }
+          imageUrl={ item.urlToImage }
+          content={ item.content }
+          />
+        )}
       />
     </View>
   );
@@ -29,8 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   postWrapper: {
     height: 500,

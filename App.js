@@ -1,29 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import ListItem from './components/ListItem'
+import posts from './dummies/posts.json'
+
 
 export default function App() {
+  const items = posts.map( post => { 
+    return (
+      <ListItem
+        userName={ post.user_name }
+        userImage={ post.user_image }
+        imageUrl={ post.urlToImage }
+        content={ post.content }
+      />
+    )
+  })
+
   return (
     <View style={ styles.container }>
-      <View style={ styles.postWrapper }>
-        <View style={ styles.topBox }>
-          <View style={ styles.topBoxLeft }></View>
-        </View>
-        <View style={ styles.middleBox }>
-          <Image
-          style={ styles.middleBox }
-          source={{
-            uri: 'https://picsum.photos/200/300',
-          }}
+      <FlatList
+        data={ posts }
+        renderItem={({ item }) => (
+          <ListItem
+          userName={ item.user_name }
+          userImage={ item.user_image }
+          imageUrl={ item.urlToImage }
+          content={ item.content }
           />
-        </View>
-        <View style={ styles.bottomBox }>
-          <View style={ styles.bottomBoxArea }>
-            <View style={ styles.bottomLeftArea }></View>
-            <View style={ styles.bottomCenterArea }></View>
-            <View style={ styles.bottomRightArea }></View>
-          </View>
-        </View>
-      </View>
+        )}
+      />
     </View>
   );
 }
@@ -32,8 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   postWrapper: {
     height: 500,

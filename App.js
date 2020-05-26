@@ -1,29 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import ListItem from './components/ListItem'
+// import posts from './dummies/post.json'
+
 
 export default function App() {
+  // const items = posts.map( post => { return(
+  //   <ListItem
+  //     username={ post.user_name }
+  //     userImage={ post.user_image }
+  //     ImageUrl={ post.urlToImage }
+  //     content={ post.content }
+  //   />
+  // )})
   return (
     <View style={ styles.container }>
-      <View style={ styles.postWrapper }>
-        <View style={ styles.topBox }>
-          <View style={ styles.topBoxLeft }></View>
-        </View>
-        <View style={ styles.middleBox }>
-          <Image
-          style={ styles.middleBox }
-          source={{
-            uri: 'https://picsum.photos/200/300',
-          }}
-          />
-        </View>
-        <View style={ styles.bottomBox }>
-          <View style={ styles.bottomBoxArea }>
-            <View style={ styles.bottomLeftArea }></View>
-            <View style={ styles.bottomCenterArea }></View>
-            <View style={ styles.bottomRightArea }></View>
-          </View>
-        </View>
-      </View>
+      <ListItem
+        userName="Riko"
+        content="samplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesample"
+        imageUrl="https://picsum.photos/200/300"
+        userImage="https://picsum.photos/200"
+      />
     </View>
   );
 }

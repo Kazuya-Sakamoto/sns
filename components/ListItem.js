@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   },
   userImage: {
     marginTop: 3,
+    marginLeft: 3,
     width: 45,
     height: 45,
     borderRadius:50,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   userName: {
     textAlign: 'center',
     paddingTop: 20,
-    paddingLeft: 10
+    paddingLeft: 13
   },
 
   middleBox: {

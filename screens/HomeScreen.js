@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import ListItem from '../components/ListItem'
-import posts from '../dummies/posts.json'
+import ListItem from '../components/ListItem';
+import dummyPosts from '../dummies/posts.json';
+import axios from 'axios';
+
+const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 
 
 export default  HomeScreen = () => {
-  const items = posts.map( post => { 
-    return (
-      <ListItem
-        userName={ post.user_name }
-        userImage={ post.user_image }
-        imageUrl={ post.urlToImage }
-        content={ post.content }
-      />
-    )
-  })
+  //* Hooks の導入
+  const [posts, setPosts] = useState([]); 
+  // * useEffect 導入 コンポーネントのマウント時に発火させるアクションを宣言
+  useEffect(() => { 
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get(URL);
+      const arrayPost = response.data.documents;
+      setPosts(arrayPost);
+      //! console.log(arrayPost);  dataの確認
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <View style={ styles.container }>
@@ -22,10 +32,10 @@ export default  HomeScreen = () => {
         data={ posts }
         renderItem={({ item }) => (
           <ListItem
-            userName={ item.user_name }
-            userImage={ item.user_image }
-            imageUrl={ item.urlToImage }
-            content={ item.content }
+            userName={ item.fields.user_name.stringValue }
+            userImage={ item.fields.user_image.stringValue }
+            imageUrl={ item.fields.urlToImage.stringValue }
+            content={ item.fields.content.stringValue }
           />
         )}
       />

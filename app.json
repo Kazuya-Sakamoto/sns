@@ -23,6 +23,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      // ApiKeyを設定する
     }
   }
 }

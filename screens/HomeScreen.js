@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import ListItem from '../components/ListItem';
-import dummyPosts from '../dummies/posts.json';
 import axios from 'axios';
 
+// ! firebase URL
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 
 
@@ -15,12 +15,13 @@ export default  HomeScreen = () => {
     fetchPosts();
   }, []);
 
+  // * Axios getMethods
   const fetchPosts = async () => {
     try {
       const response = await axios.get(URL);
       const arrayPost = response.data.documents;
       setPosts(arrayPost);
-      //! console.log(arrayPost);  dataの確認
+      // console.log(arrayPost);  dataの確認
     } catch (error) {
       console.error(error);
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ListItem = ({userImage, userName, imageUrl, content}) => {
   return (
@@ -24,9 +24,15 @@ const ListItem = ({userImage, userName, imageUrl, content}) => {
       </View>
       <View style={ styles.bottomBox }>
         <View style={ styles.bottomBoxArea }>
-          <View style={ styles.bottomLeftArea }></View>
+          <View style={ styles.bottomLeftArea }>
+            <Icon name="heart-o" size={30} style={styles.icon1}/>
+            <Icon name="comment-o" size={30} style={styles.icon2}/>
+            <Icon name="send-o" size={30} style={styles.icon3}/>
+          </View>
           <View style={ styles.bottomCenterArea }></View>
-          <View style={ styles.bottomRightArea }></View>
+          <View style={ styles.bottomRightArea }>
+            <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+          </View>
         </View>
         <View style={ styles.bottomTopArea }>
           <Text>{ content }</Text>
@@ -56,15 +62,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   userImage: {
-    marginTop: 3,
+    marginTop: 5,
     marginLeft: 3,
-    width: 45,
-    height: 45,
+    width: 35,
+    height: 35,
     borderRadius:50,
   },
   userName: {
     textAlign: 'center',
-    paddingTop: 20,
+    paddingTop: 19,
     paddingLeft: 13
   },
 
@@ -80,24 +86,41 @@ const styles = StyleSheet.create({
   bottomBoxArea: {
     width: '100%',
     height: 50,
-    backgroundColor: 'gray',
     flexDirection: 'row',
     marginTop: 10,
+    position: 'relative'
   },
   bottomLeftArea: {
-    width: 150,
+    width: 170,
     height: 50,
-    backgroundColor: 'white',
+    flexDirection: 'row',
+  },
+  icon1 : {
+    marginLeft: 7,
+    padding: 6
+  },
+  icon2 : {
+    marginLeft: 7,
+    padding: 4.2
+  },
+  icon3 : {
+    marginLeft: 7,
+    padding: 5.8
+  },
+  icon4 : {
+    marginLeft: 8,
+    padding: 3
   },
   bottomCenterArea: {
     width: 100,
     height: 50,
-    backgroundColor: 'blue'
+    // backgroundColor: 'blue'
   },
   bottomRightArea: {
-    width: 125,
+    width: 55,
     height: 50,
-    backgroundColor: 'green'
+    position: 'absolute',
+    right: 0,
   },
 
   bottomTopArea: {

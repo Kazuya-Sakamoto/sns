@@ -77,16 +77,14 @@ const screenOption = ({ route }) => ({
     } else if (route.name === ' ') {
       iconName = "photo";
     }
-
-    // You can return any component that you like here!
-    return <FontAwesome name={iconName} size={25} color={color} />;
+    return <FontAwesome name={iconName} size={28} color={color} />;
   },
 })
 
 export default AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={ screenOption }>
+      <Tab.Navigator screenOptions={ screenOption } tabBarOptions={{ activeTintColor: '#C13584',inactiveTintColor: 'black', }}>
       <Tab.Screen name="     " component={ HomeStack } />
       <Tab.Screen name="    " component={ SearchStack } />
       <Tab.Screen name="   " component={ PostStack } />
@@ -96,3 +94,8 @@ export default AppNavigator = () => {
     </NavigationContainer>
   );
 }
+
+
+const styles = StyleSheet.create({
+
+})

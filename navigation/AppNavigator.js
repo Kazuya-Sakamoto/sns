@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Text } from 'react-native';
 import ListItem from '../components/ListItem'
 import posts from '../dummies/posts.json'
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,7 +38,7 @@ const SearchStack = () => {
 const PostStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="投稿" component={ PostScreen }/>
+      <Stack.Screen name="投稿" component={ PostScreen } options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

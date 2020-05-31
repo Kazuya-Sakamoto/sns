@@ -33,6 +33,7 @@ export default  HomeScreen = () => {
         data={ posts }
         renderItem={({ item }) => (
           <ListItem
+            item = {item.fields}
             userName={ item.fields.user_name.stringValue }
             userImage={ item.fields.user_image.stringValue }
             imageUrl={ item.fields.urlToImage.stringValue }

@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch } from 'react-redux';
+import { saveClip } from '../store/actions/user';
 
-const ListItem = ({userImage, userName, imageUrl, content}) => {
+const ListItem = ({item, userImage, userName, imageUrl, content}) => {
+
+  const dispatch = useDispatch();
+
   return (
     <View style={ styles.postWrapper }>
       <View style={ styles.topBox }>
@@ -31,7 +36,9 @@ const ListItem = ({userImage, userName, imageUrl, content}) => {
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            <TouchableOpacity onPress={() => {dispatch(saveClip({ clip: item }))}}>
+              <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={ styles.bottomTopArea }>

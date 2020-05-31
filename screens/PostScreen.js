@@ -1,40 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView ,Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, SafeAreaView ,Text, View, Image, TextInput, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, Button, FormLabel, FormInput, ListItem, Input } from "react-native-elements";
 import axios from 'axios';
+import { State } from 'react-native-gesture-handler';
 
 // ! firebase URL
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 
-export default LikeScreen = () => {
+export default PostScreen = () => {
 
   const [value, onChangeText] = React.useState();
+  
+  state = {
+    user_name: "",
+    content: ""
+  }
 
-  const [posts, setPosts] = useState([]); 
-  useEffect(() => { 
-    authPost();
-  });
-
-  const state = {
-    user_name: {
-      stringValue: ""
-    },
-    content: {
-      stringValue: ""
+  const requestPost = function() {
+    axios.post(URL, {
+    fields: {
+      user_name: {
+        stringValue: "sample"
+      },
+      content: {
+        stringValue: "samplesamplesamplesamplesamplesamplesamplesamplesample"
+      },
+      urlToImage: {
+        stringValue: "https://original-goods.orilab.jp/wp-content/uploads/2019/05/magazine-eyecatch-instagenic-smaphocase-fashionable.jpg"
+      },
+      user_image: {
+        stringValue: "https://www.instagram.com/p/B6LAl0xhP8i/media/?size=l"
+      }
     }
-  }
-
-  const authPost = () => {
-    axios
-    .post(URL,{ user_name: state.user_name.stringValue })
-    .then((response) => {
-      console.log(response)
-      setPosts(response)
-    })
-    .catch(error => console.log(error));
-  }
-
+  })
+  .then(function(response){
+    console.log(response)
+  })
+}
 
   return (
     <SafeAreaView style={ styles.container }>
@@ -47,7 +50,8 @@ export default LikeScreen = () => {
         </View>
         <View style={ styles.headerRight }>
           <View style={ styles.rightBox }>
-            <Button title="シェア" type="clear">
+            <Button title="シェア" type="clear" 
+              onPress={() => requestPost()}>
             </Button>
           </View>
         </View>
@@ -59,7 +63,7 @@ export default LikeScreen = () => {
         <TextInput
           style={ styles.contentRight }
           // onChangeText={text => onChangeText(text)}
-          value={ state.content }
+          value={ value }
         />
       </View>
       <View style={ styles.tagArea }>
@@ -74,7 +78,6 @@ export default LikeScreen = () => {
       </View>
       <Input
         placeholder='BASIC INPUT'
-        value={ state.user_name }
       />
     </SafeAreaView>
   )

@@ -3,39 +3,76 @@ import { StyleSheet, SafeAreaView ,Text, View, Image, TextInput, Alert } from 'r
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, Button, FormLabel, FormInput, ListItem, Input } from "react-native-elements";
 import axios from 'axios';
-import { State } from 'react-native-gesture-handler';
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 // ! firebase URL
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 
 export default PostScreen = () => {
 
-  const [value, onChangeText] = React.useState();
-  
-  state = {
-    user_name: "",
-    content: ""
-  }
+  const [content, setContent] = React.useState();
+  const [user_name, setUserName] = React.useState();
+  const [image, setImageUpLoader] = React.useState();
 
+  // const componentDidMount = function() {
+  //   this.getPermissionAsync();
+  // }
+
+  // const getPermissionAsync = async () => {
+  //   if (Constants.platform.ios) {
+  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  //     if (status !== 'granted') {
+  //       alert('Sorry, we need camera roll permissions to make this work!');
+  //     }
+  //   }
+  // };
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImageUpLoader({ image: result.uri });
+      }
+      // console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
+
+
+  //* axios post 
   const requestPost = function() {
     axios.post(URL, {
     fields: {
       user_name: {
-        stringValue: "sample"
+        stringValue: user_name
       },
       content: {
-        stringValue: "samplesamplesamplesamplesamplesamplesamplesamplesample"
+        stringValue: content
       },
       urlToImage: {
-        stringValue: "https://original-goods.orilab.jp/wp-content/uploads/2019/05/magazine-eyecatch-instagenic-smaphocase-fashionable.jpg"
+        stringValue: "https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655"
       },
       user_image: {
-        stringValue: "https://www.instagram.com/p/B6LAl0xhP8i/media/?size=l"
+        stringValue: "https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655"
       }
     }
   })
-  .then(function(response){
+  .then(function(response) {
     console.log(response)
+    const data = response.uri;
+    console.log(data)
+  })
+  .catch(function(error) {
+    console.log(error)
   })
 }
 
@@ -62,8 +99,9 @@ export default PostScreen = () => {
         </View>
         <TextInput
           style={ styles.contentRight }
-          // onChangeText={text => onChangeText(text)}
-          value={ value }
+          placeholder='content'
+          onChangeText={text => setContent(text)}
+          value={ content }
         />
       </View>
       <View style={ styles.tagArea }>
@@ -77,8 +115,14 @@ export default PostScreen = () => {
       <View>
       </View>
       <Input
-        placeholder='BASIC INPUT'
+        placeholder='user_name'
+        onChangeText={text => setUserName(text)}
+        value={ user_name }
       />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button title="Pick Image Your iphone" onPress={pickImage} />
+        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      </View>
     </SafeAreaView>
   )
 }

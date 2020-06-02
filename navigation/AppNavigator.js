@@ -75,7 +75,7 @@ const screenOption = ({ route }) => ({
     } else if (route.name === '   ') {
       iconName = "plus-square-o";
     } else if (route.name === ' ') {
-      iconName = "photo";
+      iconName = "user-circle-o";
     }
     return <FontAwesome name={iconName} size={28} color={color} />;
   },

@@ -7,7 +7,8 @@ import axios from 'axios';
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 
 
-export default  HomeScreen = () => {
+export default  HomeScreen = ({ navigation }) => {
+
   //* Hooks の導入
   const [posts, setPosts] = useState([]); 
   // * useEffect 導入 コンポーネントのマウント時に発火させるアクションを宣言
@@ -38,6 +39,7 @@ export default  HomeScreen = () => {
             userImage={ item.fields.user_image.stringValue }
             imageUrl={ item.fields.urlToImage.stringValue }
             content={ item.fields.content.stringValue }
+            onPress={() => navigation.navigate('Article')}
           />
         )}
       />

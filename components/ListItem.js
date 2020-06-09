@@ -2,14 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
-import { saveClip } from '../store/actions/user';
+import { addClip } from '../store/actions/user';
 
-const ListItem = ({item, userImage, userName, imageUrl, content}) => {
+const ListItem = ({userImage, userName, imageUrl, content, onPress}) => {
 
   const dispatch = useDispatch();
 
   return (
-    <View style={ styles.postWrapper }>
+    <View style={ styles.postWrapper } onPress={ onPress }>
       <View style={ styles.topBox }>
         <View style={ styles.topBoxLeft }>
           <View style={ styles.userImage }>
@@ -32,11 +32,14 @@ const ListItem = ({item, userImage, userName, imageUrl, content}) => {
           <View style={ styles.bottomLeftArea }>
             <Icon name="heart-o" size={30} style={styles.icon1}/>
             <Icon name="comment-o" size={30} style={styles.icon2}/>
-            <Icon name="send-o" size={30} style={styles.icon3}/>
+            {/* 詳細画面に遷移する */}
+            <TouchableOpacity onPress={ onPress }>
+              <Icon name="send-o" size={30} style={styles.icon3}/>
+            </TouchableOpacity>
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <TouchableOpacity onPress={() => {dispatch(saveClip({ clip: item }))}}>
+            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: userName  })) }}>
               <Icon name="bookmark-o" size={30} style={styles.icon4}/>
             </TouchableOpacity>
           </View>

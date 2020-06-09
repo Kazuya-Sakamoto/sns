@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch } from 'react-redux';
+import { addClip } from '../store/actions/user';
 
 export default ArticleScreen = ({ route }) => {
   const { article } = route.params; //* 画面遷移の実装
   // console.log(article)
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={ styles.container }>
@@ -31,7 +34,7 @@ export default ArticleScreen = ({ route }) => {
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: userName  })) }}>
+            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: article  })) }}>
               <Icon name="bookmark-o" size={30} style={styles.icon4}/>
             </TouchableOpacity>
           </View>

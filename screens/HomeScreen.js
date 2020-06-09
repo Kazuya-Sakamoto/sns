@@ -39,7 +39,7 @@ export default  HomeScreen = ({ navigation }) => {
             userImage={ item.fields.user_image.stringValue }
             imageUrl={ item.fields.urlToImage.stringValue }
             content={ item.fields.content.stringValue }
-            onPress={() => navigation.navigate('Article')}
+            onPress={() => navigation.navigate('Article', { article: item })}
           />
         )}
       />

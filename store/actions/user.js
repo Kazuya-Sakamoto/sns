@@ -1,6 +1,7 @@
-export const saveClip = ({ clip }) => {
+//* Action を宣言する
+export const addClip = ({ clip }) => {
   return {
-    type: 'SAVE_CLIP',
+    type: 'ADD_CLIP',
     clip,
   };
 };

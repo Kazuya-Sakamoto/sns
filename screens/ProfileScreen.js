@@ -4,6 +4,9 @@ import { StyleSheet, SafeAreaView ,Text, View, Image, Button } from 'react-nativ
 
 
 export default ProfileScreen = () => {
+
+  
+
   return (
     <SafeAreaView style={ styles.container }>
       <View style={ styles.profileTop }>
@@ -39,7 +42,7 @@ export default ProfileScreen = () => {
         </View>
         <Button
           icon={{
-            size: 15,
+            size: 12,
             color: "black",
             backgroundColor: "White"
           }}

@@ -4,7 +4,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SAVE_CLIP':
+    case 'ADD_CLIP':
       return {
         ...state,
         clips: [...state.clips, action.clip]

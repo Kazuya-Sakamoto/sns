@@ -70,15 +70,15 @@ const screenOption = ({ route }) => ({
   tabBarIcon: ({ color, size }) => {
     let iconName;
 
-    if (route.name === '     ') {
+    if (route.name === 'Home') {
       iconName = "home";
-    } else if (route.name === '  ') {
+    } else if (route.name === 'Like') {
       iconName = "heart-o";
-    } else if (route.name === '    ') {
+    } else if (route.name === 'search') {
       iconName = "search";
-    } else if (route.name === '   ') {
+    } else if (route.name === 'Post') {
       iconName = "plus-square-o";
-    } else if (route.name === ' ') {
+    } else if (route.name === 'Profile') {
       iconName = "user-circle-o";
     }
     return <FontAwesome name={iconName} size={28} color={color} />;
@@ -89,11 +89,11 @@ export default AppNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={ screenOption } tabBarOptions={{ activeTintColor: '#C13584',inactiveTintColor: 'black', }}>
-      <Tab.Screen name="     " component={ HomeStack } />
-      <Tab.Screen name="    " component={ SearchStack } />
-      <Tab.Screen name="   " component={ PostStack } />
-      <Tab.Screen name="  " component={ LikeStack } />
-      <Tab.Screen name=" " component={ ProfileStack } />
+      <Tab.Screen name="Home" component={ HomeStack } />
+      <Tab.Screen name="search" component={ SearchStack } />
+      <Tab.Screen name="Post" component={ PostStack } />
+      <Tab.Screen name="Like" component={ LikeStack } />
+      <Tab.Screen name="Profile" component={ ProfileStack } />
       </Tab.Navigator>
     </NavigationContainer>
   );

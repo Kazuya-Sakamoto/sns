@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: '100%',
-    height: 58,
+    height: 60,
     backgroundColor: 'white',
     flexDirection: 'row',
   },
@@ -165,11 +165,11 @@ const styles = StyleSheet.create({
   headerRight: {
     width: '40%',
     height: 60,
-    position: 'relative'
+    position: 'relative',
   },
   rightBox: {
     width: 70,
-    height: 50,
+    height: 60,
     paddingTop: 18,
     paddingLeft: 5,
     position: 'absolute',

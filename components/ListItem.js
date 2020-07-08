@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
-import { addClip } from '../store/actions/user';
+import { addClip, deleteClip } from '../store/actions/user';
 
-const ListItem = ({userImage, userName, imageUrl, content, onPress}) => {
+// * HomeScreenから継承してくる
+const ListItem = ({item, userImage, userName, imageUrl, content, onPress}) => {
 
   const dispatch = useDispatch();
 
@@ -39,7 +40,10 @@ const ListItem = ({userImage, userName, imageUrl, content, onPress}) => {
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: userName  })) }}>
+            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: item  })) }}>
+              <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
               <Icon name="bookmark-o" size={30} style={styles.icon4}/>
             </TouchableOpacity>
           </View>

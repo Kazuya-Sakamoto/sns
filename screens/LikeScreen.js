@@ -1,10 +1,27 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView ,Text, View, Image } from 'react-native';
+import { StyleSheet, SafeAreaView ,Text, View, Image, FlatList } from 'react-native';
+import { useSelector } from "react-redux"
+import ListItem from '../components/ListItem';
 
-export default LikeScreen = () => {
+
+export default LikeScreen = ({ navigation }) => {
+  const user = useSelector(state => state.user)
+  const { clips } = user;
   return (
     <SafeAreaView>
-      <Text>Like Screen</Text>
+      <FlatList 
+        data={ clips } 
+        renderItem={({ item }) => (
+          <ListItem
+            item = {item}
+            userName={ item.user_name.stringValue }
+            userImage={ item.user_image.stringValue }
+            imageUrl={ item.urlToImage.stringValue }
+            content={ item.content.stringValue }
+            onPress={() => navigation.navigate('Article', { article: item })}
+          />
+        )}
+      />
     </SafeAreaView>
   )
 }

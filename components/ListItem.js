@@ -43,14 +43,14 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress}) => {
             <TouchableOpacity onPress={() => { dispatch(addClip({ clip: item  })) }}>
               <Icon name="bookmark-o" size={30} style={styles.icon4}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
-              <Icon name="bookmark-o" size={30} style={styles.icon4}/>
-            </TouchableOpacity>
           </View>
         </View>
         <View style={ styles.bottomTopArea }>
           <Text>{ content }</Text>
         </View>
+        <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
+          <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+        </TouchableOpacity>
       </View>
     </View>
   )

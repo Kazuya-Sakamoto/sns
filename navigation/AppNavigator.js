@@ -74,7 +74,7 @@ const screenOption = ({ route }) => ({
       iconName = "home";
     } else if (route.name === 'Like') {
       iconName = "heart-o";
-    } else if (route.name === 'search') {
+    } else if (route.name === 'Search') {
       iconName = "search";
     } else if (route.name === 'Post') {
       iconName = "plus-square-o";
@@ -90,7 +90,7 @@ export default AppNavigator = () => {
     <NavigationContainer>
       <Tab.Navigator screenOptions={ screenOption } tabBarOptions={{ activeTintColor: '#C13584',inactiveTintColor: 'black', }}>
       <Tab.Screen name="Home" component={ HomeStack } />
-      <Tab.Screen name="search" component={ SearchStack } />
+      <Tab.Screen name="Search" component={ SearchStack } />
       <Tab.Screen name="Post" component={ PostStack } />
       <Tab.Screen name="Like" component={ LikeStack } />
       <Tab.Screen name="Profile" component={ ProfileStack } />

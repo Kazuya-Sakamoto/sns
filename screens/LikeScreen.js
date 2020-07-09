@@ -18,7 +18,7 @@ export default LikeScreen = ({ navigation }) => {
             userImage={ item.user_image.stringValue }
             imageUrl={ item.urlToImage.stringValue }
             content={ item.content.stringValue }
-            onPress={() => navigation.navigate('LikeArticle', { article: item })}
+            onPress={() => navigation.navigate('記事詳細', { article: item })}
           />
         )}
         keyExtractor={(item, index) => index.toString()}

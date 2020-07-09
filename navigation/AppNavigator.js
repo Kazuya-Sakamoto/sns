@@ -24,9 +24,7 @@ const HomeStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="Instagram" component={ HomeScreen } />
       {/* 記事詳細画面に遷移 */}
-      <Stack.Screen name="Article" component={ ArticleScreen }/> 
-      {/* お気に入りから記事詳細に遷移 */}
-      <Stack.Screen name="LikeArticle" component={ LikeArticleScreen }/> 
+      <Stack.Screen name="記事詳細" component={ ArticleScreen }/> 
     </Stack.Navigator>
   )
 }
@@ -54,6 +52,8 @@ const LikeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="アクティビティ" component={ LikeScreen }/>
+      {/* お気に入りから記事詳細に遷移 */}
+      <Stack.Screen name="記事詳細" component={ LikeArticleScreen }/> 
     </Stack.Navigator>
   )
 }

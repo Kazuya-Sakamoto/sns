@@ -1,13 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addClip, deleteClip } from '../store/actions/user';
+import ArticleScreen from '../screens/ArticleScreen';
 
 // * HomeScreenから継承してくる
-const ListItem = ({item, userImage, userName, imageUrl, content, onPress}) => {
+const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enabled}) => {
 
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
+  const { clips } = user;
+
+  const isClipped = () => {
+    return clips.some(clip => clip.content === item.content)
+  }
+  const toggleClip = () => {
+    if(isClipped()){
+      dispatch(deleteClip({ clip: item  }))
+    } else {
+      dispatch(addClip({ clip: item  }))
+    }
+  }
+
+  const name = enabled ? 'bookmark' : 'bookmark-o';
 
   return (
     <View style={ styles.postWrapper } onPress={ onPress }>
@@ -40,17 +57,17 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress}) => {
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: item  })) }}>
-              <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            <TouchableOpacity onPress={ toggleClip } enabled={isClipped()}>
+              <Icon name={name} size={30} style={styles.icon4}/>
             </TouchableOpacity>
           </View>
         </View>
         <View style={ styles.bottomTopArea }>
           <Text>{ content }</Text>
         </View>
-        <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
+        {/* <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
           <Icon name="bookmark-o" size={30} style={styles.icon4}/>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   )

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { addClip, deleteClip } from '../store/actions/user';
 import ArticleScreen from '../screens/ArticleScreen';
-
+import LikeButton  from "./LikeButton";
 // * HomeScreenから継承してくる
 const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enabled}) => {
 
@@ -13,9 +13,11 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enable
   const user = useSelector(state => state.user);
   const { clips } = user;
 
+  // * いいねされているか否かを判断
   const isClipped = () => {
     return clips.some(clip => clip.content === item.content)
   }
+  //* 条件ごとに挙動の変更
   const toggleClip = () => {
     if(isClipped()){
       dispatch(deleteClip({ clip: item  }))
@@ -24,7 +26,6 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enable
     }
   }
 
-  const name = enabled ? 'bookmark' : 'bookmark-o';
 
   return (
     <View style={ styles.postWrapper } onPress={ onPress }>
@@ -48,7 +49,7 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enable
       <View style={ styles.bottomBox }>
         <View style={ styles.bottomBoxArea }>
           <View style={ styles.bottomLeftArea }>
-            <Icon name="heart-o" size={30} style={styles.icon1}/>
+            <LikeButton onPress={ toggleClip } enabled={ isClipped() } style={styles.icon1}/>
             <Icon name="comment-o" size={30} style={styles.icon2}/>
             {/* 詳細画面に遷移する */}
             <TouchableOpacity onPress={ onPress }>
@@ -57,17 +58,12 @@ const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enable
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-            <TouchableOpacity onPress={ toggleClip } enabled={isClipped()}>
-              <Icon name={name} size={30} style={styles.icon4}/>
-            </TouchableOpacity>
+          <Icon name="bookmark-o" size={30} style={styles.icon4}/>
           </View>
         </View>
         <View style={ styles.bottomTopArea }>
           <Text>{ content }</Text>
         </View>
-        {/* <TouchableOpacity onPress={() => { dispatch(deleteClip({ clip: item  })) }}>
-          <Icon name="bookmark-o" size={30} style={styles.icon4}/>
-        </TouchableOpacity> */}
       </View>
     </View>
   )

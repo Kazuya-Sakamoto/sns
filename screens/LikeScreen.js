@@ -21,6 +21,7 @@ export default LikeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Article', { article: item })}
           />
         )}
+        keyExtractor={(item, index) => index.toString()}
       />
     </SafeAreaView>
   )

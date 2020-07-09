@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 54,
     marginBottom: 2,
+    backgroundColor: 'white'
   },
   topBoxLeft: {
     width: 300,

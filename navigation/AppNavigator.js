@@ -11,6 +11,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PostScreen from '../screens/PostScreen';
 import ArticleScreen from '../screens/ArticleScreen';
+import LikeArticleScreen from '../screens/LikeArticleScreen';
 import { FontAwesome } from '@expo/vector-icons';
 
 
@@ -24,6 +25,8 @@ const HomeStack = () => {
       <Stack.Screen name="Instagram" component={ HomeScreen } />
       {/* 記事詳細画面に遷移 */}
       <Stack.Screen name="Article" component={ ArticleScreen }/> 
+      {/* お気に入りから記事詳細に遷移 */}
+      <Stack.Screen name="LikeArticle" component={ LikeArticleScreen }/> 
     </Stack.Navigator>
   )
 }

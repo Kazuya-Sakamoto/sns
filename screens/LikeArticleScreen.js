@@ -1,87 +1,61 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { addClip, deleteClip } from '../store/actions/user';
-import ArticleScreen from '../screens/ArticleScreen';
-import LikeButton  from "./LikeButton";
-// * HomeScreenから継承してくる
-const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enabled}) => {
+import { useDispatch } from 'react-redux';
+import { addClip } from '../store/actions/user';
 
+export default LikeArticleScreen = ({ route }) => {
+  const { article } = route.params; //* 画面遷移の実装
+  // console.log(article)
   const dispatch = useDispatch();
 
-  const user = useSelector(state => state.user);
-  const { clips } = user;
-
-  // * いいねされているか否かを判断
-  const isClipped = () => {
-    return clips.some(clip => clip.content === item.content)
-  }
-  //* 条件ごとに挙動の変更
-  const toggleClip = () => {
-    if(isClipped()){
-      dispatch(deleteClip({ clip: item  }))
-    } else {
-      dispatch(addClip({ clip: item  }))
-    }
-  }
-
-
   return (
-    <View style={ styles.postWrapper } onPress={ onPress }>
+    <SafeAreaView style={ styles.container }>
       <View style={ styles.topBox }>
         <View style={ styles.topBoxLeft }>
-          <View style={ styles.userImage }>
-            <Image
-            style={ styles.userImage }
-            source={{ uri: userImage }}
-            />
-          </View>
-          <Text style={ styles.userName }>{ userName }</Text>
+          <Image
+          style={ styles.userImage }
+          source={{ uri: article.user_image.stringValue }}
+          />
+          <Text style={ styles.userName }>{ article.user_name.stringValue }</Text>
         </View>
       </View>
       <View style={ styles.middleBox }>
-        <Image
+      <Image
         style={ styles.middleBox }
-        source={{ uri: imageUrl }}
+        source={{ uri: article.urlToImage.stringValue }}
         />
       </View>
       <View style={ styles.bottomBox }>
         <View style={ styles.bottomBoxArea }>
           <View style={ styles.bottomLeftArea }>
-            <LikeButton onPress={ toggleClip } enabled={ isClipped() } style={styles.icon1}/>
+            <Icon name="heart-o" size={30} style={styles.icon1}/>
             <Icon name="comment-o" size={30} style={styles.icon2}/>
-            {/* 詳細画面に遷移する */}
-            <TouchableOpacity onPress={ onPress }>
-              <Icon name="send-o" size={30} style={styles.icon3}/>
-            </TouchableOpacity>
           </View>
           <View style={ styles.bottomCenterArea }></View>
           <View style={ styles.bottomRightArea }>
-          <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            <TouchableOpacity onPress={() => { dispatch(addClip({ clip: article  })) }}>
+              <Icon name="bookmark-o" size={30} style={styles.icon4}/>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={ styles.bottomTopArea }>
-          <Text>{ content }</Text>
+          <Text>{ article.content.stringValue }</Text>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default ListItem;
-
 const styles = StyleSheet.create({
-  postWrapper: {
-    height: 600,
-    width: '100%',
-    // backgroundColor: 'red'
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
   },
+  // ? 上部
   topBox: {
     width: '100%',
-    height: 54,
-    marginBottom: 2,
-    backgroundColor: 'white'
+    height: 60,
   },
   topBoxLeft: {
     width: 300,
@@ -90,10 +64,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   userImage: {
-    marginTop: 5,
-    marginLeft: 3,
-    width: 35,
-    height: 35,
+    marginTop: 10,
+    marginLeft: 5,
+    width: 40,
+    height: 40,
     borderRadius:50,
   },
   userName: {
@@ -102,11 +76,13 @@ const styles = StyleSheet.create({
     paddingLeft: 13
   },
 
+  //? 中央
   middleBox: {
     width: '100%',
     height: 350,
   },
 
+// ? 下部
   bottomBox: {
     width: '100%',
     height: 140,

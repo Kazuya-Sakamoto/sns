@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView ,Text, View, Image, TextInput, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView ,Text, View, Image, TextInput, Alert, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, Button, FormLabel, FormInput, ListItem, Input } from "react-native-elements";
 import axios from 'axios';
@@ -14,7 +14,7 @@ export default PostScreen = () => {
 
   const [content, setContent] = React.useState();
   const [user_name, setUserName] = React.useState();
-  const [image, setImageUpLoader] = React.useState();
+  const [selectedImage, setSelectedImage] = React.useState(null);
 
   // const componentDidMount = function() {
   //   this.getPermissionAsync();
@@ -28,24 +28,35 @@ export default PostScreen = () => {
   //     }
   //   }
   // };
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
-  const pickImage = async () => {
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      if (!result.cancelled) {
-        setImageUpLoader({ image: result.uri });
-      }
-      // console.log(result);
-    } catch (E) {
-      console.log(E);
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    console.log(pickerResult);
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+    console.log(selectedImage)
+    if (selectedImage !== null) {
+      return (
+        <View style={styles.container}>
+          <Image
+            source={{ uri: selectedImage.localUri }}
+            style={styles.thumbnail}
+          />
+        </View>
+      );
     }
   };
-
 
 
   //* axios post 
@@ -59,7 +70,7 @@ export default PostScreen = () => {
         stringValue: content
       },
       urlToImage: {
-        stringValue: "https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655"
+        stringValue: image
       },
       user_image: {
         stringValue: "https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655"
@@ -119,10 +130,13 @@ export default PostScreen = () => {
         onChangeText={text => setUserName(text)}
         value={ user_name }
       />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Pick Image Your iphone" onPress={pickImage} />
+      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button title="画像を投稿する" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      </View>
+      </View> */}
+      <TouchableOpacity onPress={ openImagePickerAsync } style={styles.button}>
+        <Text style={styles.buttonText}>Pick a photo</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -222,5 +236,10 @@ const styles = StyleSheet.create({
   textPlace: {
     padding: 18,
     color: '#777777',
+  },
+  thumbnail: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain"
   }
 })

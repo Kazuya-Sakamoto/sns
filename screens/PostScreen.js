@@ -38,14 +38,16 @@ export default PostScreen = () => {
 
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    console.log(pickerResult);
+    // console.log(pickerResult);
 
     if (pickerResult.cancelled === true) {
       return;
     }
 
     setSelectedImage({ localUri: pickerResult.uri });
-    console.log(selectedImage)
+
+    console.log(pickerResult.uri)
+
     if (selectedImage !== null) {
       return (
         <View style={styles.container}>
@@ -70,7 +72,7 @@ export default PostScreen = () => {
         stringValue: content
       },
       urlToImage: {
-        stringValue: image
+        stringValue: selectedImage
       },
       user_image: {
         stringValue: "https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655"

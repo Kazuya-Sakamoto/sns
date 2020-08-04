@@ -38,11 +38,11 @@ export default ProfileScreen = () => {
     try {
       const response = await axios.get(userURL);
       const arrayUser = response.data.documents;
-      for(const i = 0; i < arrayUser.length; i++){
-        // console.log(arrayUser[0])
-        const user = arrayUser[0]
-        setUser(user.fields)
-      }
+      // for(const i = 0; i < arrayUser.length; i++){
+      //   // console.log(arrayUser[0])
+      //   const user = arrayUser[0]
+      //   setUser(user.fields)
+      // }
       // console.log(arrayUser)
     } catch(error) {
       console.log(error)

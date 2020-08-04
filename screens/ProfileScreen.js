@@ -1,9 +1,53 @@
-import React from 'react';
-import { StyleSheet, SafeAreaView ,Text, View, Image, Button } from 'react-native';
-// import { Button } from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, SafeAreaView ,Text, View, Image, Button, TouchableOpacity, FlatList } from 'react-native';
+import ListThree from '../components/ListThree';
+import axios from 'axios';
 
+
+const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
+const userURL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/users'
 
 export default ProfileScreen = () => {
+
+  // * react Hooks 
+  // * 画像の取得
+  const [images, setImage] = useState([]);
+	useEffect(() => {
+		fetchImage();
+  }, []);
+
+  // *
+  const [users, setUser] = useState([]);
+  useEffect(() => {
+    fetchUser();
+  })
+
+
+  // * 画像の取得
+	const fetchImage = async () => {
+		try { 
+      const response = await axios.get(URL);
+      const arrayImage = response.data.documents;
+      setImage(arrayImage)
+		} catch(error) {
+      console.log(error)
+    }
+  }
+  // * ユーザープロフィール情報を取得
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(userURL);
+      const arrayUser = response.data.documents;
+      for(const i = 0; i < arrayUser.length; i++){
+        // console.log(arrayUser[0])
+        const user = arrayUser[0]
+        setUser(user.fields)
+      }
+      // console.log(arrayUser)
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   
 
@@ -40,14 +84,25 @@ export default ProfileScreen = () => {
             </View>
           </View>
         </View>
-        <Button
-          icon={{
-            size: 12,
-            color: "black",
-            backgroundColor: "White"
-          }}
-          title="プロフィールの編集"
+        <View style={ styles.profileEditArea }>
+          <View style={ styles.editButton }>
+          <TouchableOpacity style={styles.button}>
+            <Text style={ styles.editText }>プロフィール編集</Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+        <View style={ styles.listArea }>
+          {/* 画像を一覧表示 */}
+          <FlatList
+          data={ images }
+          renderItem={({ item }) => (
+            <ListThree
+              imageUrl={ item.fields.urlToImage.stringValue }
+              onPress={() => navigation.navigate('記事詳細', { article: item })}
+            />
+          )}
         />
+        </View>
       </View>
     </SafeAreaView>
   )
@@ -95,10 +150,12 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 
+  // ?プロフィール名前、コメント欄
   profileBox: {
     width: '100%',
-    height: 100,
+    height: '25%',
     alignItems: 'center',
+    // backgroundColor: 'yellow'
   },
   profileInt: {
     width: '90%',
@@ -115,5 +172,32 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 14,
     fontWeight: 'bold'
+  },
+
+  // ?編集ボタン
+  profileEditArea: {
+    width: '100%',
+    height: '20%',
+    padding: 10,
+    // backgroundColor: 'red',
+  },
+  editButton: {
+    borderWidth: 1,
+    borderColor:'gray',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 3,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  editText: {
+    fontWeight: 'bold' 
+  },
+  listArea: {
+    width: '100%',
+    height: '100%',
   }
+
 })

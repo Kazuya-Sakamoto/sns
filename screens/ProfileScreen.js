@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView ,Text, View, Image, Button, TouchableOpacity, FlatList } from 'react-native';
 import ListThree from '../components/ListThree';
 import axios from 'axios';
+import ProfileEditScreen from './EditScreen';
 
 
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
 const userURL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/users'
 
-export default ProfileScreen = () => {
+export default ProfileScreen = ({ navigation }) => {
 
   // * react Hooks 
   // * 画像の取得
@@ -44,7 +45,7 @@ export default ProfileScreen = () => {
       const response = await axios.get(userURL);
       const arrayUser = response.data.documents;
       for(const i = 0; i < arrayUser.length; i++){
-      // console.log(arrayUser)
+      console.log(arrayUser)
         const user = arrayUser[0]
         setUser(user.fields.user_name.stringValue)
         setUserInt(user.fields.user_int.stringValue)
@@ -94,7 +95,7 @@ export default ProfileScreen = () => {
         </View>
         <View style={ styles.profileEditArea }>
           <View style={ styles.editButton }>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('プロフィール編集')}>
             <Text style={ styles.editText }>プロフィール編集</Text>
           </TouchableOpacity>
           </View>
@@ -106,7 +107,7 @@ export default ProfileScreen = () => {
           renderItem={({ item }) => (
             <ListThree
               imageUrl={ item.fields.urlToImage.stringValue }
-              onPress={() => navigation.navigate('記事詳細', { article: item })}
+              // onPress={() => navigation.navigate('記事詳細', { article: item })}
             />
           )}
         />

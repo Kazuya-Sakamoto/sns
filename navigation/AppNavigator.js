@@ -13,6 +13,7 @@ import PostScreen from '../screens/PostScreen';
 import ArticleScreen from '../screens/ArticleScreen';
 import LikeArticleScreen from '../screens/LikeArticleScreen';
 import { FontAwesome } from '@expo/vector-icons';
+import EditScreen from '../screens/EditScreen';
 
 
 const Stack = createStackNavigator();
@@ -63,6 +64,7 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="プロフィール" component={ ProfileScreen }/>
+      <Stack.Screen name="プロフィール編集" component={ EditScreen } />
     </Stack.Navigator>
   )
 } 

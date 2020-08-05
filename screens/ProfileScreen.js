@@ -16,8 +16,13 @@ export default ProfileScreen = () => {
 		fetchImage();
   }, []);
 
-  // *
+  // * userの名前を取得する
   const [users, setUser] = useState([]);
+  useEffect(() => {
+    fetchUser();
+  })
+  // * userの自己紹介文を取得する
+  const [int, setUserInt] = useState([]);
   useEffect(() => {
     fetchUser();
   })
@@ -38,14 +43,15 @@ export default ProfileScreen = () => {
     try {
       const response = await axios.get(userURL);
       const arrayUser = response.data.documents;
-      // for(const i = 0; i < arrayUser.length; i++){
-      //   // console.log(arrayUser[0])
-      //   const user = arrayUser[0]
-      //   setUser(user.fields)
-      // }
+      for(const i = 0; i < arrayUser.length; i++){
       // console.log(arrayUser)
+        const user = arrayUser[0]
+        setUser(user.fields.user_name.stringValue)
+        setUserInt(user.fields.user_int.stringValue)
+        // console.log(user.fields.user_name.stringValue)
+      }
     } catch(error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -63,7 +69,7 @@ export default ProfileScreen = () => {
           </View>
           <View style={ styles.rightBox }>
             <Text style={ styles.postNum }>31</Text>
-            <Text style={ styles.postTag }>投稿</Text>
+  <Text style={ styles.postTag }>投稿数</Text>
           </View>
           <View style={ styles.rightBox }>
             <Text style={ styles.postNum }>200</Text>
@@ -77,10 +83,12 @@ export default ProfileScreen = () => {
         <View style={ styles.profileBox }>
           <View style={ styles.profileInt }>
             <View style={ styles.profileTopBox }>
-              <Text style={ styles.profileName }>Test User</Text>
+              {/* UserNameの取得 */}
+              <Text style={ styles.profileName }>{ users }</Text>
             </View>
             <View style={ styles.profileBottomBox }>
-              <Text style={ styles.profileDetail }>サンプルのテキストです。ここにプロフィールの詳細内容を入れます。まだDBとの接続はできていないのでサンプルで文章です。</Text>
+              {/* Userプロフィールの取得 */}
+              <Text style={ styles.profileDetail }>{ int }</Text>
             </View>
           </View>
         </View>

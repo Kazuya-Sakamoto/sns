@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 	},
 	ItemImage: {
 		width: '33%',
-		height: 100,
+		height: 120,
 		flexDirection: "row"
 	},
 })

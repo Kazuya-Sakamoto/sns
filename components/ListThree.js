@@ -5,10 +5,12 @@ const ListThree = ({ imageUrl }) => {
 	
 	return (
 		<View style={ styles.container }>
-			<Image
-				style={ styles.ItemImage }
-				source={{ uri: imageUrl }}
-				/>
+			<View style={ styles.imageArea }>
+				<Image
+					style={ styles.ItemImage }
+					source={{ uri: imageUrl }}
+					/>
+			</View>
 		</View>
 	)
 }
@@ -19,11 +21,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 		backgroundColor: '#fff',
-		flexDirection: "row"
+		flexDirection: "row",
+		// justifyContent: 'center',
+		// alignItems: 'center',
+	},
+	imageArea: {
+		width: '100%',
+		height: 300,
+		flexDirection: "row",
+		justifyContent: 'center'
 	},
 	ItemImage: {
-		width: '33%',
-		height: 120,
-		flexDirection: "row"
+		width: '95%',
+		height: '95%',
 	},
 })

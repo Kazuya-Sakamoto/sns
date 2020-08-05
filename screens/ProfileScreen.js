@@ -123,6 +123,8 @@ const styles = StyleSheet.create({
   profileTop: {
     width: '100%',
     height: '70%',
+    backgroundColor: '#FFFAFA',
+    marginBottom: 10,
   },
   topBox: {
     width: '100%',

@@ -6,20 +6,22 @@ import axios from 'axios';
 export default EditScreen = () => {
 	// const { profileEdit } = route.params; //* 画面遷移の実装
 	const [value, onChangeText] = React.useState('入力してください');
-	
+	const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/users'
 	// * edit
 	const editRequest = function() {
-		console.log('aaa')
-		axios.put('https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/users', {
+		const data = {
 			fields: {
 				user_int: {
 					stringValue: value
 				}
-			},
-			name: "projects/game-3a87b/databases/(default)/documents/users/MoDXeSdVg90vWvkSija4"
-		})
-		.then(function(response) {
+			}
+		}
+		axios.put(URL, data)
+		.then(response => {
 			console.log(response)
+		})
+		.catch(error=> {
+			console.log(error)
 		})
 	}
 

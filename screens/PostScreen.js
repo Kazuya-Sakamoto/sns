@@ -47,17 +47,6 @@ export default PostScreen = () => {
     setSelectedImage({ localUri: pickerResult.uri });
 
     console.log(pickerResult.uri)
-
-    if (selectedImage !== null) {
-      return (
-        <View style={styles.container}>
-          <Image
-            source={{ uri: selectedImage.localUri }}
-            style={styles.thumbnail}
-          />
-        </View>
-      );
-    }
   };
 
 
@@ -108,7 +97,15 @@ export default PostScreen = () => {
       </View>
       <View style={ styles.contentAre }>
         <View style={ styles.contentLeft }>
-          <View style={ styles.leftImage }></View>
+          {/*  画像の投稿 */}
+        <TouchableOpacity onPress={ openImagePickerAsync } style={styles.button}>
+          {/* 画像がなければ「画像が選択されていません」あれば,画像を表示する */}
+          <Text style={ styles.leftImage }>{ selectedImage ? <Image
+            source={{ uri: selectedImage.localUri }}
+            style={ styles.leftImage }
+          /> : <Text style={ styles.imageText }>画像が選択されていません</Text>}
+          </Text>
+        </TouchableOpacity>
         </View>
         <TextInput
           style={ styles.contentRight }
@@ -119,7 +116,7 @@ export default PostScreen = () => {
       </View>
       <View style={ styles.tagArea }>
         <View style={ styles.topBar }>
-          <Text style={ styles.textPlace }>タグ付けをする</Text>
+          <Text style={ styles.textPlace }>aaa</Text>
         </View>
         <View style={ styles.bottomBar }>
           <Text style={ styles.textPlace }>位置情報を追加</Text>
@@ -132,13 +129,6 @@ export default PostScreen = () => {
         onChangeText={text => setUserName(text)}
         value={ user_name }
       />
-      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="画像を投稿する" onPress={pickImage} />
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      </View> */}
-      <TouchableOpacity onPress={ openImagePickerAsync } style={styles.button}>
-        <Text style={styles.buttonText}>Pick a photo</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -151,15 +141,15 @@ const styles = StyleSheet.create({
   },
   header: {
     width: '100%',
-    height: 60,
-    backgroundColor: 'white',
+    height: 50,
+    backgroundColor: '#fff',
     flexDirection: 'row',
   },
   headerLeft: {
-    width: '60%',
+    width: '59%',
     height: 58,
     flexDirection: 'row',
-    position: 'relative'
+    position: 'relative',
   },
   leftBackIcon: {
     width: 40,
@@ -176,7 +166,7 @@ const styles = StyleSheet.create({
     right: 0,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   headerRight: {
     width: '40%',
@@ -186,10 +176,10 @@ const styles = StyleSheet.create({
   rightBox: {
     width: 70,
     height: 60,
-    paddingTop: 18,
-    paddingLeft: 5,
     position: 'absolute',
     right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   shareText: {
     color: '#0066FF',
@@ -210,7 +200,11 @@ const styles = StyleSheet.create({
   leftImage: {
     width: 80,
     height: 80,
-    backgroundColor: 'green'
+    backgroundColor: '#EFEFEF',
+  },
+  imageText: {
+    padding: 10,
+    color: 'gray'
   },
   contentRight: {
     width: 300,

@@ -42,22 +42,17 @@ export default PostScreen = () => {
   // };
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
-
     if (permissionResult.granted === false) {
       alert("Permission to access camera roll is required!");
       return;
     }
 
-
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
     // console.log(pickerResult);
-
     if (pickerResult.cancelled === true) {
       return;
     }
-
     setSelectedImage({ localUri: pickerResult.uri });
-
     console.log(pickerResult.uri)
   };
 
@@ -101,13 +96,13 @@ export default PostScreen = () => {
         </View>
         <View style={ styles.headerRight }>
           <View style={ styles.rightBox }>
+            {/* <PostButton onPress={ requestPost }/> */}
             <Button title="シェア" type="clear"
               onPress={ requestPost }>
             </Button>
           </View>
         </View>
       </View>
-      {/* <PostButton></PostButton> */}
 
       <View style={ styles.formArea }>
         <View style={ styles.formMiddleArea }>

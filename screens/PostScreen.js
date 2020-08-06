@@ -6,9 +6,21 @@ import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PostButton from "../components/PostButton";
 
 // ! firebase URL
 const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(default)/documents/posts';
+
+// * 複数のテキストを入力できるボックスを作成する
+const UselessTextInput = (props) => {
+  return (
+    <TextInput
+      {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+      editable
+      maxLength={40}
+    />
+  );
+}
 
 export default PostScreen = () => {
 
@@ -83,52 +95,53 @@ export default PostScreen = () => {
       <View style={ styles.header }>
         <View style={ styles.headerLeft }>
           <View style={ styles.leftBackIcon }>
-            <Icon name="angle-left" size={30} style={styles.icon1}/>
+            {/* <Icon name="angle-left" size={30} style={styles.icon1}/> */}
           </View>
           <Text style={ styles.centerBox }>新規投稿</Text>
         </View>
         <View style={ styles.headerRight }>
           <View style={ styles.rightBox }>
-            <Button title="シェア" type="clear" 
-              onPress={() => requestPost()}>
+            <Button title="シェア" type="clear"
+              onPress={ requestPost }>
             </Button>
           </View>
         </View>
       </View>
-      <View style={ styles.contentAre }>
-        <View style={ styles.contentLeft }>
-          {/*  画像の投稿 */}
-        <TouchableOpacity onPress={ openImagePickerAsync } style={styles.button}>
-          {/* 画像がなければ「画像が選択されていません」あれば,画像を表示する */}
-          <Text style={ styles.leftImage }>{ selectedImage ? <Image
-            source={{ uri: selectedImage.localUri }}
-            style={ styles.leftImage }
-          /> : <Text style={ styles.imageText }>画像が選択されていません</Text>}
-          </Text>
-        </TouchableOpacity>
+      {/* <PostButton></PostButton> */}
+
+      <View style={ styles.formArea }>
+        <View style={ styles.formMiddleArea }>
+          <View>
+          <Text style={ styles.formTag }>氏名</Text>
+          <TextInput
+            style={ styles.inputName }
+            onChangeText={text => setUserName(text)}
+            placeholder='名前を入力してください'
+            value={ user_name }
+          />
+          <Text style={ styles.formTag }>内容</Text>
+          <UselessTextInput
+            style={ styles.textContent }
+            multiline
+            numberOfLines={ 4 }
+            onChangeText={text => setContent(text)}
+            value={ content } 
+          />
+          <Text style={ styles.formTag }>画像の選択</Text>
+
+          <View style={ styles.imageFormArea }>
+          <TouchableOpacity onPress={ openImagePickerAsync }>
+            {/* 画像がなければ「画像が選択されていません」あれば,画像を表示する */}
+            <Text style={ styles.formImage }>{ selectedImage ? <Image
+              source={{ uri: selectedImage.localUri }}
+              style={ styles.formImage }
+            /> : <Text style={ styles.imageText }>画像が選択されていません</Text>}
+            </Text>
+          </TouchableOpacity>
+          </View>
+          </View>
         </View>
-        <TextInput
-          style={ styles.contentRight }
-          placeholder='content'
-          onChangeText={text => setContent(text)}
-          value={ content }
-        />
       </View>
-      <View style={ styles.tagArea }>
-        <View style={ styles.topBar }>
-          <Text style={ styles.textPlace }>aaa</Text>
-        </View>
-        <View style={ styles.bottomBar }>
-          <Text style={ styles.textPlace }>位置情報を追加</Text>
-        </View>
-      </View>
-      <View>
-      </View>
-      <Input
-        placeholder='user_name'
-        onChangeText={text => setUserName(text)}
-        value={ user_name }
-      />
     </SafeAreaView>
   )
 }
@@ -213,29 +226,49 @@ const styles = StyleSheet.create({
     // backgroundColor: 'green',
   },
 
-  tagArea: {
+
+  // * formArea
+  formArea: {
     width: '100%',
-    height: 100,
+    height: 500,
+    alignItems: 'center',
   },
-  topBar: {
+  formMiddleArea: {
+    width: '85%',
+    height: '100%',
+  },
+  inputName: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    borderRadius: 4,
+    height: 45,
+    padding: 10,
+    backgroundColor: '#EFEFEF'
+  },
+  formTag: {
+    marginBottom: 10,
+    marginTop: 20,
+    fontWeight: 'bold'
+  },
+  textContent: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#EFEFEF',
+    borderRadius: 4,
+    height: 145,
+    padding: 10,
+    paddingTop: 10
+  },
+  formImage: {
+    width: 280,
+    height: 180,
+    backgroundColor: '#EFEFEF',
+    borderColor: '#CCCCCC',
+    borderWidth: 1,
+  },
+  imageFormArea: {    
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.2,
-  },
-  bottomBar: {
-    width: '100%',
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.2,
-  },
-  textPlace: {
-    padding: 18,
-    color: '#777777',
-  },
-  thumbnail: {
-    width: 300,
-    height: 300,
-    resizeMode: "contain"
   }
 })

@@ -70,7 +70,7 @@ export default ProfileScreen = ({ navigation }) => {
           </View>
           <View style={ styles.rightBox }>
             <Text style={ styles.postNum }>31</Text>
-  <Text style={ styles.postTag }>投稿数</Text>
+            <Text style={ styles.postTag }>投稿数</Text>
           </View>
           <View style={ styles.rightBox }>
             <Text style={ styles.postNum }>200</Text>

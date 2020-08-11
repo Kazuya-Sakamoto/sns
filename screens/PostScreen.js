@@ -28,18 +28,6 @@ export default PostScreen = () => {
   const [user_name, setUserName] = React.useState();
   const [selectedImage, setSelectedImage] = React.useState(null);
 
-  // const componentDidMount = function() {
-  //   this.getPermissionAsync();
-  // }
-
-  // const getPermissionAsync = async () => {
-  //   if (Constants.platform.ios) {
-  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  //     if (status !== 'granted') {
-  //       alert('Sorry, we need camera roll permissions to make this work!');
-  //     }
-  //   }
-  // };
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
     if (permissionResult.granted === false) {

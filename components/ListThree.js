@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
 
-const ListThree = ({ imageUrl }) => {
+const ListThree = ({ imageUrl, onPress }) => {
 	
 	return (
 		<View style={ styles.container }>
 			<View style={ styles.imageArea }>
-				<Image
-					style={ styles.ItemImage }
-					source={{ uri: imageUrl }}
+				<TouchableOpacity onPress={ onPress } style={ styles.ItemImage }>
+					<Image
+						style={ styles.ItemImage }
+						source={{ uri: imageUrl }}
+						onPress={ onPress }
 					/>
+				</TouchableOpacity>
 			</View>
 		</View>
 	)
@@ -34,5 +37,7 @@ const styles = StyleSheet.create({
 	ItemImage: {
 		width: '95%',
 		height: '95%',
+		justifyContent: 'center', 
+		flexDirection: 'row',
 	},
 })

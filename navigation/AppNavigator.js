@@ -65,6 +65,7 @@ const ProfileStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="プロフィール" component={ ProfileScreen }/>
       <Stack.Screen name="プロフィール編集" component={ EditScreen } />
+      <Stack.Screen name="記事詳細" component={ ArticleScreen }/> 
     </Stack.Navigator>
   )
 } 

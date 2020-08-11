@@ -103,14 +103,14 @@ export default ProfileScreen = ({ navigation }) => {
         <View style={ styles.listArea }>
           {/* 画像を一覧表示 */}
           <FlatList
-          data={ images }
-          renderItem={({ item }) => (
-            <ListThree
-              imageUrl={ item.fields.urlToImage.stringValue }
-              // onPress={() => navigation.navigate('記事詳細', { article: item })}
-            />
-          )}
-        />
+            data={ images }
+            renderItem={({ item }) => (
+              <ListThree
+                imageUrl={ item.fields.urlToImage.stringValue }
+                onPress={() => navigation.navigate('記事詳細', { article: item })}
+              />
+            )}
+          />
         </View>
       </View>
     </SafeAreaView>

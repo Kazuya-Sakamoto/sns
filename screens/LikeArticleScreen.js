@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { addClip } from '../store/actions/user';
+import { addClip, deleteClip } from '../store/actions/user';
 import LikeButton  from "../components/LikeButton";
 
 export default LikeArticleScreen = ({ route }) => {

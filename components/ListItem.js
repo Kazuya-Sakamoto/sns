@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   postWrapper: {
     height: 600,
     width: '100%',
-    // backgroundColor: 'red'
+    backgroundColor: '#FFFFFF'
   },
   topBox: {
     width: '100%',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     marginTop: 10,
-    position: 'relative'
+    position: 'relative',
   },
   bottomLeftArea: {
     width: 170,

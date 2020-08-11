@@ -1,13 +1,30 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addClip } from '../store/actions/user';
+import LikeButton  from "../components/LikeButton";
 
-export default ArticleScreen = ({ route }) => {
+export default ArticleScreen = ({ route, enabled }) => {
   const { article } = route.params; //* 画面遷移の実装
   // console.log(article)
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
+  const { clips } = user;
+
+    // * いいねされているか否かを判断
+    const isClipped = () => {
+      return clips.some(clip => article.content === article.content)
+    }
+    //* 条件ごとに挙動の変更
+    const toggleClip = () => {
+      if(isClipped()){
+        dispatch(deleteClip({ clip: article  }))
+      } else {
+        dispatch(addClip({ clip: article  }))
+      }
+    }
 
   return (
     <SafeAreaView style={ styles.container }>
@@ -29,7 +46,7 @@ export default ArticleScreen = ({ route }) => {
       <View style={ styles.bottomBox }>
         <View style={ styles.bottomBoxArea }>
           <View style={ styles.bottomLeftArea }>
-            <Icon name="heart-o" size={30} style={styles.icon1}/>
+            <LikeButton name="heart-o" size={30} style={styles.icon1} onPress={ toggleClip } enabled={ isClipped() } />
             <Icon name="comment-o" size={30} style={styles.icon2}/>
           </View>
           <View style={ styles.bottomCenterArea }></View>

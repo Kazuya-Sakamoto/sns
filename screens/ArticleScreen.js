@@ -2,27 +2,28 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { addClip } from '../store/actions/user';
+import { addClip, deleteClip } from '../store/actions/user';
 import LikeButton  from "../components/LikeButton";
 
 export default ArticleScreen = ({ route, enabled }) => {
   const { article } = route.params; //* 画面遷移の実装
   // console.log(article)
   const dispatch = useDispatch();
+  const articleClip = article.fields
 
   const user = useSelector(state => state.user);
   const { clips } = user;
 
     // * いいねされているか否かを判断
     const isClipped = () => {
-      return clips.some(clip => article.content === article.content)
+      return clips.some(clip => articleClip.content === articleClip.content)
     }
     //* 条件ごとに挙動の変更
     const toggleClip = () => {
       if(isClipped()){
-        dispatch(deleteClip({ clip: article  }))
+        dispatch(deleteClip({ clip: articleClip  }))
       } else {
-        dispatch(addClip({ clip: article  }))
+        dispatch(addClip({ clip: articleClip  }))
       }
     }
 

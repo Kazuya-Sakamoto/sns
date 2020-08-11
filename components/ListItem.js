@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { addClip, deleteClip } from '../store/actions/user';
-import ArticleScreen from '../screens/ArticleScreen';
 import LikeButton  from "./LikeButton";
 // * HomeScreenから継承してくる
 const ListItem = ({item, userImage, userName, imageUrl, content, onPress, enabled}) => {

@@ -9,9 +9,9 @@ const URL = 'https://firestore.googleapis.com/v1/projects/game-3a87b/databases/(
 
 export default  HomeScreen = ({ navigation }) => {
 
-  //* Hooks の導入
+  //* Hooks の導入 Vue === data(){return{ posts: [] }}
   const [posts, setPosts] = useState([]); 
-  // * useEffect 導入 コンポーネントのマウント時に発火させるアクションを宣言
+  // * useEffect 導入 コンポーネントのマウント時に発火させるアクションを宣言 Vue === mounted: {} 
   useEffect(() => { 
     fetchPosts();
   }, []);
@@ -34,7 +34,7 @@ export default  HomeScreen = ({ navigation }) => {
         data={ posts }
         renderItem={({ item }) => (
           <ListItem
-            item = {item.fields}
+            item = { item.fields }
             userName={ item.fields.user_name.stringValue }
             userImage={ item.fields.user_image.stringValue }
             imageUrl={ item.fields.urlToImage.stringValue }

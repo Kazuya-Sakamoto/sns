@@ -64,7 +64,7 @@ export default ProfileScreen = ({ navigation }) => {
         <View style={ styles.topBox }>
           <View style={ styles.imageProfileBox }>
             <Image
-              source={{ uri: 'https://joah-girls.com/system/item_images/images/000/162/556/medium/4d7519b7-abb0-42c7-ae2f-fa82bebde7bc.png?1528360655' }}
+              source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSkbN6vQ-mMt6h8-rOK4iCj2vHmeuqWEpJQBw&usqp=CAU' }}
               style={ styles.imageProfile }
             />
           </View>

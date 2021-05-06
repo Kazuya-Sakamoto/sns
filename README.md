@@ -1,4 +1,13 @@
-# sns
+# sns app
+
+This app that homages instagram. 
+
+## 開発環境
+- firebase
+- React Native
+- Expo
+- axios
+
 ## Design layout
 
 ![スクリーンショット 2020-08-05 17 59 05](https://user-images.githubusercontent.com/56709557/89393384-b48bd680-d745-11ea-8cf5-0e23d97b2df7.png)
